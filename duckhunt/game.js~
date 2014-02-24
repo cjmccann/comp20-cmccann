@@ -1,19 +1,23 @@
 // Draws elements on canvas
 // No arguments
 // No return value
+// Called onload of body
 function draw () {
 	canvas = document.getElementById('game');
 	ctx = canvas.getContext('2d');
 
+	// Background fill color
 	ctx.fillStyle = "#87CEEB";
 	ctx.fillRect (0, 0, 800, 600);
 
+	// Load sprite sheet
 	var oImg=document.createElement("img");
 	oImg.setAttribute('src', 'assets/duckhunt.png');
 	oImg.setAttribute('alt', 'na');
 
-
-	//				     sx,  sy,  sw,  sh,  dx,  dy,  dw,  dh
+	// Drawing images on screen
+	// Order of drawing: tree, road, dog, birdx5
+	//					 sx,  sy,  sw,  sh,  dx,  dy,  dw,  dh
 	ctx.drawImage(oImg,   0, 271,  72, 126,  40, 260, 144, 252);
 	ctx.drawImage(oImg,   0, 714, 900, 182,   0, 418, 900, 182); 
 	ctx.drawImage(oImg,   0,   0,  62,  46, 200, 440, 186, 138);
