@@ -1,7 +1,6 @@
 // Draws elements on canvas
-// No arguments
-// No return value
-// Called onload of body
+// No arguments, no return value
+// Called onload of HTML body
 function draw () {
 	canvas = document.getElementById('game');
 	ctx = canvas.getContext('2d');
