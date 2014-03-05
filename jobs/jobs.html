@@ -4,6 +4,7 @@
 
 <head>
 <title>Friends of Ming Chow Jobs Listing</title>
+	<link rel="stylesheet" href="jobs.css" type="text/css" />
 <script>
 	var list;
 
@@ -16,16 +17,37 @@
 
 	function addItems() {
 		div = document.getElementById('list');
-		ul   = document.createElement("ul");
-		div.appendChild(ul);
+		h1  = document.createElement("h1");
+		txt  = document.createTextNode("Job List");
+		h1.appendChild(txt);
+		div.appendChild(h1);
+		ol   = document.createElement("ol");
+		div.appendChild(ol);
 
 		var li;
+		var ul;
 		var textNode;
 		for (var i=0; i < list.length; i++) {
-			li = document.createElement("li")
-			textNode = document.createTextNode(list[i].company + " --  " + list[i].location + " -- " + list[i].position);
+			// Create principle list item with company name
+			li = document.createElement("li");
+			textNode = document.createTextNode(list[i].company);
 			li.appendChild(textNode);
-			ul.appendChild(li);
+
+			// Create sublist (unordered) that contains details in 2 li's
+			ul = document.createElement("ul");
+			uli = document.createElement("li");
+			uli2 = document.createElement("li");
+			
+			li.appendChild(ul);
+			ol.appendChild(li);
+
+			textNode = document.createTextNode(list[i].location);
+			uli.appendChild(textNode);
+			ul.appendChild(uli);
+			
+			textNode = document.createTextNode(list[i].position);
+			uli2.appendChild(textNode);
+			ul.appendChild(uli2);
 		}
 	}
 </script>
