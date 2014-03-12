@@ -1,50 +1,58 @@
 var myLat = 0;
 var myLng = 0;
-var me = new google.maps.LatLng(myLat, myLng);
 var request = new XMLHttpRequest();
-
+var me = new google.maps.LatLng(myLat, myLng);
 var myOptions = {
-	zoom: 13, center: me, mapTypeId: google.maps.MapTypeId.ROADMAP
-};
-
-
+			zoom: 13, // The larger the zoom number, the bigger the zoom
+			center: me,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
 var map;
 var marker;
 var infowindow = new google.maps.InfoWindow();
 var places;
 
-function init() {
+function init()
+{
 	map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 	getMyLocation();
 }
 
-function getMyLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position){
+function getMyLocation()
+{
+	if (navigator.geolocation) { // the navigator.geolocation object is supported on your browser
+		navigator.geolocation.getCurrentPosition(function(position) {
 			myLat = position.coords.latitude;
-			myLng = position.coords.longtitude;
+			myLng = position.coords.longitude;
 			renderMap();
 		});
-	} else {
-		alert("Geolocation not supported in browser.");
+	}
+	else {
+		alert("Geolocation is not supported by your web browser.  What a shame!");
 	}
 }
 
-function renderMap() {
+function renderMap()
+{
 	me = new google.maps.LatLng(myLat, myLng);
-
+	
+	// Update map and go there...
 	map.panTo(me);
 
+	// Create a marker
 	marker = new google.maps.Marker({
-		postion: me, title: "Here I am!"
+		position: me,
+		title: "Here I Am!"
 	});
 	marker.setMap(map);
-
+		
+	// Open info window on click of marker
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.setContent(marker.title);
-		infowindw.open(map, marker);
+		infowindow.open(map, marker);
 	});
-
+	
+	// Calling Google Places API
 	var request = {
 		location: me,
 		radius: '500',
@@ -54,7 +62,9 @@ function renderMap() {
 	service.search(request, callback);
 }
 
-function callback (results, status) {
+// Taken from http://code.google.com/apis/maps/documentation/javascript/places.html
+function callback(results, status)
+{
 	if (status == google.maps.places.PlacesServiceStatus.OK) {
 		alert("Got places back!");
 		places = results;
@@ -64,7 +74,7 @@ function callback (results, status) {
 	}
 }
 
-function createMarker (place)
+function createMarker(place)
 {
 	var placeLoc = place.geometry.location;
 	var marker = new google.maps.Marker({
@@ -74,7 +84,7 @@ function createMarker (place)
 
 	google.maps.event.addListener(marker, 'click', function() {
 		infowindow.close();
-		infowindow.setContet(place.name);
+		infowindow.setContent(place.name);
 		infowindow.open(map, this);
 	});
 }
