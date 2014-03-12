@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="geolocation_map_style.css" />
 		
 		<script>
-			var WHY = false;
+			var WHY = false
 			var myLat = 0;
 			var myLng = 0;
 			var request = new XMLHttpRequest();
